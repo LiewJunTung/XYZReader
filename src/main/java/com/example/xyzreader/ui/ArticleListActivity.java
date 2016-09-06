@@ -145,19 +145,7 @@ public class ArticleListActivity extends ActionBarActivity implements
             mCursor.moveToPosition(position);
             final Intent intent = new Intent(Intent.ACTION_VIEW,
                     ItemsContract.Items.buildItemUri(getItemId(holder.getAdapterPosition())));
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                        Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(ArticleListActivity.this,
-                                holder.thumbnailView, holder.thumbnailView.getTransitionName())
-                                .toBundle();
-                        startActivity(intent, bundle);
-                    } else {
-                        startActivity(intent);
-                    }
-                }
-            });
+
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             holder.subtitleView.setText(
                     DateUtils.getRelativeTimeSpanString(
@@ -169,6 +157,21 @@ public class ArticleListActivity extends ActionBarActivity implements
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                        holder.thumbnailView.setTransitionName(mCursor.getString(ArticleLoader.Query.TITLE));
+                        Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(ArticleListActivity.this,
+                                holder.thumbnailView, holder.thumbnailView.getTransitionName())
+                                .toBundle();
+                        startActivity(intent, bundle);
+                    } else {
+                        startActivity(intent);
+                    }
+                }
+            });
            // holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
         }
 
