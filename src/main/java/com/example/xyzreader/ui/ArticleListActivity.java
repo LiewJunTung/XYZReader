@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
@@ -161,15 +159,15 @@ public class ArticleListActivity extends ActionBarActivity implements
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                 /*   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                         holder.thumbnailView.setTransitionName(mCursor.getString(ArticleLoader.Query.TITLE));
                         Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(ArticleListActivity.this,
                                 holder.thumbnailView, holder.thumbnailView.getTransitionName())
                                 .toBundle();
                         startActivity(intent, bundle);
-                    } else {
+                    } else {*/
                         startActivity(intent);
-                    }
+                   // }
                 }
             });
            // holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
